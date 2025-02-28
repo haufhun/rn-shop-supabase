@@ -1,5 +1,5 @@
-import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
+import { FlatList, Image, StyleSheet, Text, View } from "react-native";
 import { Redirect, Stack, useLocalSearchParams } from "expo-router";
 import { CATEGORIES } from "../../../assets/categories";
 import { PRODUCTS } from "../../../assets/products";
