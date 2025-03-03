@@ -5,10 +5,15 @@ import {
   ImageBackground,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import * as zod from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { supabase } from "../lib/supabase";
+import { Toast } from "react-native-toast-notifications";
+import { useAuth } from "../providers/auth-provider";
+import { Redirect } from "expo-router";
 
 const authSchema = zod.object({
   email: zod.string().email({ message: "Invalid email address" }),
@@ -18,6 +23,12 @@ const authSchema = zod.object({
 });
 
 export default function Auth() {
+  const { session } = useAuth();
+
+  if (session) {
+    return <Redirect href="/" />;
+  }
+
   const { control, handleSubmit, formState } = useForm({
     resolver: zodResolver(authSchema),
     defaultValues: {
@@ -26,12 +37,41 @@ export default function Auth() {
     },
   });
 
-  const signIn = (data: zod.infer<typeof authSchema>) => {
-    console.log(data);
+  const signIn = async (data: zod.infer<typeof authSchema>) => {
+    console.log("Calling supabase sign in");
+
+    const { error } = await supabase.auth.signInWithPassword({
+      email: data.email,
+      password: data.password,
+    });
+
+    if (error) {
+      Alert.alert(error.message);
+    } else {
+      Toast.show("Signed in successfully", {
+        type: "success",
+        placement: "top",
+        duration: 1500,
+      });
+    }
   };
 
-  const signUp = (data: zod.infer<typeof authSchema>) => {
-    console.log(data);
+  const signUp = async (data: zod.infer<typeof authSchema>) => {
+    console.log("Calling supabase sign up");
+    const { error } = await supabase.auth.signUp({
+      email: data.email,
+      password: data.password,
+    });
+
+    if (error) {
+      Alert.alert(error.message);
+    } else {
+      Toast.show("Signed up successfully", {
+        type: "success",
+        placement: "top",
+        duration: 1500,
+      });
+    }
   };
 
   return (
@@ -102,7 +142,7 @@ export default function Auth() {
 
         <TouchableOpacity
           style={[styles.button, styles.signUpButton]}
-          onPress={() => handleSubmit(signUp)}
+          onPress={handleSubmit(signUp)}
           disabled={formState.isSubmitting}
         >
           <Text style={[styles.buttonText, styles.signUpButtonText]}>
