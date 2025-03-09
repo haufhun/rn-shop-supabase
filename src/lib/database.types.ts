@@ -34,6 +34,77 @@ export type Database = {
   }
   public: {
     Tables: {
+      category: {
+        Row: {
+          created_at: string | null
+          id: number
+          imageurl: string
+          name: string
+          products: number[] | null
+          slug: string
+        }
+        Insert: {
+          created_at?: string | null
+          id?: number
+          imageurl: string
+          name: string
+          products?: number[] | null
+          slug: string
+        }
+        Update: {
+          created_at?: string | null
+          id?: number
+          imageurl?: string
+          name?: string
+          products?: number[] | null
+          slug?: string
+        }
+        Relationships: []
+      }
+      product: {
+        Row: {
+          category: number
+          created_at: string | null
+          heroimage: string
+          id: number
+          imagesurl: string[]
+          maxquantity: number
+          price: number
+          slug: string
+          title: string
+        }
+        Insert: {
+          category: number
+          created_at?: string | null
+          heroimage: string
+          id?: number
+          imagesurl: string[]
+          maxquantity: number
+          price: number
+          slug: string
+          title: string
+        }
+        Update: {
+          category?: number
+          created_at?: string | null
+          heroimage?: string
+          id?: number
+          imagesurl?: string[]
+          maxquantity?: number
+          price?: number
+          slug?: string
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_category_fkey"
+            columns: ["category"]
+            isOneToOne: false
+            referencedRelation: "category"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       users: {
         Row: {
           avatar_url: string
