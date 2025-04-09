@@ -38,7 +38,7 @@ export type Database = {
         Row: {
           created_at: string | null
           id: number
-          imageurl: string
+          image_url: string
           name: string
           products: number[] | null
           slug: string
@@ -46,7 +46,7 @@ export type Database = {
         Insert: {
           created_at?: string | null
           id?: number
-          imageurl: string
+          image_url: string
           name: string
           products?: number[] | null
           slug: string
@@ -54,7 +54,7 @@ export type Database = {
         Update: {
           created_at?: string | null
           id?: number
-          imageurl?: string
+          image_url?: string
           name?: string
           products?: number[] | null
           slug?: string
@@ -65,10 +65,10 @@ export type Database = {
         Row: {
           category: number
           created_at: string | null
-          heroimage: string
+          hero_image: string
           id: number
-          imagesurl: string[]
-          maxquantity: number
+          image_url: string[]
+          max_quantity: number
           price: number
           slug: string
           title: string
@@ -76,10 +76,10 @@ export type Database = {
         Insert: {
           category: number
           created_at?: string | null
-          heroimage: string
+          hero_image: string
           id?: number
-          imagesurl: string[]
-          maxquantity: number
+          image_url: string[]
+          max_quantity: number
           price: number
           slug: string
           title: string
@@ -87,10 +87,10 @@ export type Database = {
         Update: {
           category?: number
           created_at?: string | null
-          heroimage?: string
+          hero_image?: string
           id?: number
-          imagesurl?: string[]
-          maxquantity?: number
+          image_url?: string[]
+          max_quantity?: number
           price?: number
           slug?: string
           title?: string
