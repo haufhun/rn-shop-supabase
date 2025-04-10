@@ -76,7 +76,7 @@ create table product (
   created_at timestamp default current_timestamp,
   title text unique not null,
   slug text unique not null,
-  image_url text[] not null,
+  images_url text[] not null,
   price int8 not null,
   hero_image text not null,
   category bigint references category(id) not null,
