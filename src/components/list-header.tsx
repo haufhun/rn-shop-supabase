@@ -10,13 +10,15 @@ import {
 import React from "react";
 import { Link } from "expo-router";
 import { FontAwesome } from "@expo/vector-icons";
-import { CATEGORIES } from "../../assets/categories";
 import { useCartStore } from "../store/cart-store";
 import { supabase } from "../lib/supabase";
+import { Tables } from "../lib/database.types";
 
-type Props = {};
+type Props = {
+  categories: Tables<"category">[];
+};
 
-export const ListHeader = (props: Props) => {
+export const ListHeader = ({ categories }: Props) => {
   const { getItemCount } = useCartStore();
 
   const handleSignOut = async () => {
@@ -74,12 +76,12 @@ export const ListHeader = (props: Props) => {
       <View style={styles.categoriesContainer}>
         <Text style={styles.sectionTitle}>Categories</Text>
         <FlatList
-          data={CATEGORIES}
+          data={categories}
           renderItem={({ item }) => (
             <Link asChild href={`/categories/${item.slug}`}>
               <Pressable style={styles.category}>
                 <Image
-                  source={{ uri: item.imageUrl }}
+                  source={{ uri: item.image_url }}
                   style={styles.categoryImage}
                 />
                 <Text style={styles.categoryText}>{item.name}</Text>
