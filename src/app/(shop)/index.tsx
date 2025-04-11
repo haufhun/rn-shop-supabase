@@ -1,18 +1,33 @@
-import { FlatList, StyleSheet, View } from "react-native";
+import {
+  ActivityIndicator,
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import React from "react";
 import { PRODUCTS } from "../../../assets/products";
 import { ProductListItem } from "../../components/product-list-item";
 import { ListHeader } from "../../components/list-header";
-import { useAuth } from "../../providers/auth-provider";
+import { getProductsAndCategories } from "../../api/api";
 
 const Home = () => {
-  const { user } = useAuth();
-  console.log(user);
+  const { data, error, isLoading } = getProductsAndCategories();
+
+  if (isLoading) {
+    return <ActivityIndicator />;
+  }
+
+  if (error || !data) {
+    return <Text>Error {error?.message || "An error occurred"}</Text>;
+  }
+
+  console.log("Products and Categories", data);
 
   return (
     <View>
       <FlatList
-        data={PRODUCTS}
+        data={data.products}
         renderItem={({ item }) => <ProductListItem product={item} />}
         keyExtractor={(item) => item.id.toString()}
         numColumns={2}
