@@ -9,16 +9,8 @@ import {
   View,
 } from "react-native";
 import React from "react";
-import { useCartStore } from "../store/cart-store";
+import { CartItemType, useCartStore } from "../store/cart-store";
 import { StatusBar } from "expo-status-bar";
-
-type CartItemType = {
-  id: number;
-  title: string;
-  image: any;
-  price: number;
-  quantity: number;
-};
 
 type CartItemProps = {
   item: CartItemType;
@@ -34,7 +26,7 @@ const CartItem = ({
 }: CartItemProps) => {
   return (
     <View style={styles.cartItem}>
-      <Image source={item.image} style={styles.itemImage} />
+      <Image source={{ uri: item.hero_image }} style={styles.itemImage} />
       <View style={styles.itemDetails}>
         <Text style={styles.itemTitle}>{item.title}</Text>
         <Text style={styles.itemPrice}>${item.price.toFixed(2)}</Text>
