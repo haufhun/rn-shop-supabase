@@ -71,7 +71,7 @@ const ProductDetails = () => {
 
       <View style={{ padding: 16, flex: 1 }}>
         <Text style={styles.title}>{product.title}</Text>
-        <Text style={styles.slug}> Slug{product.slug}</Text>d
+        <Text style={styles.slug}>Slug: {product.slug}</Text>
         <View style={styles.priceContainer}>
           <Text style={styles.price}>
             Unit Price: ${product.price.toFixed(2)}

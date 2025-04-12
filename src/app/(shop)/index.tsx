@@ -22,8 +22,6 @@ const Home = () => {
     return <Text>Error {error?.message || "An error occurred"}</Text>;
   }
 
-  console.log("Products and Categories", data);
-
   return (
     <View>
       <FlatList

@@ -32,8 +32,6 @@ export default function AuthProvider({ children }: PropsWithChildren) {
         data: { session },
       } = await supabase.auth.getSession();
 
-      console.log("IN AUTHPROVIDER", session);
-
       setSession(session);
 
       if (session) {
@@ -46,7 +44,6 @@ export default function AuthProvider({ children }: PropsWithChildren) {
         if (error) {
           console.error("error", error);
         } else {
-          console.log("Setting user:", user);
           setUser(user);
         }
       }
@@ -56,7 +53,6 @@ export default function AuthProvider({ children }: PropsWithChildren) {
 
     fetchSession();
     supabase.auth.onAuthStateChange((_event, session) => {
-      console.log("Auth state changed:", session);
       setSession(session);
     });
   }, []);
