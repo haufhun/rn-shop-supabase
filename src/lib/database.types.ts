@@ -36,7 +36,7 @@ export type Database = {
     Tables: {
       category: {
         Row: {
-          created_at: string | null
+          created_at: string
           id: number
           image_url: string
           name: string
@@ -44,7 +44,7 @@ export type Database = {
           slug: string
         }
         Insert: {
-          created_at?: string | null
+          created_at?: string
           id?: number
           image_url: string
           name: string
@@ -52,7 +52,7 @@ export type Database = {
           slug: string
         }
         Update: {
-          created_at?: string | null
+          created_at?: string
           id?: number
           image_url?: string
           name?: string
@@ -61,10 +61,79 @@ export type Database = {
         }
         Relationships: []
       }
+      order: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: number
+          slug: string
+          status: string
+          total_price: number
+          user: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: number
+          slug: string
+          status: string
+          total_price: number
+          user: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: number
+          slug?: string
+          status?: string
+          total_price?: number
+          user?: string
+        }
+        Relationships: []
+      }
+      order_item: {
+        Row: {
+          created_at: string
+          id: number
+          order: number
+          product: number
+          quantity: number
+        }
+        Insert: {
+          created_at?: string
+          id?: number
+          order: number
+          product: number
+          quantity: number
+        }
+        Update: {
+          created_at?: string
+          id?: number
+          order?: number
+          product?: number
+          quantity?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_item_order_fkey"
+            columns: ["order"]
+            isOneToOne: false
+            referencedRelation: "order"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_item_product_fkey"
+            columns: ["product"]
+            isOneToOne: false
+            referencedRelation: "product"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       product: {
         Row: {
           category: number
-          created_at: string | null
+          created_at: string
           hero_image: string
           id: number
           images_url: string[]
@@ -75,7 +144,7 @@ export type Database = {
         }
         Insert: {
           category: number
-          created_at?: string | null
+          created_at?: string
           hero_image: string
           id?: number
           images_url: string[]
@@ -86,7 +155,7 @@ export type Database = {
         }
         Update: {
           category?: number
-          created_at?: string | null
+          created_at?: string
           hero_image?: string
           id?: number
           images_url?: string[]
