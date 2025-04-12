@@ -177,21 +177,21 @@ export type Database = {
       users: {
         Row: {
           avatar_url: string
-          created_at: string | null
+          created_at: string
           email: string
           id: string
           type: string | null
         }
         Insert: {
           avatar_url: string
-          created_at?: string | null
+          created_at?: string
           email: string
           id: string
           type?: string | null
         }
         Update: {
           avatar_url?: string
-          created_at?: string | null
+          created_at?: string
           email?: string
           id?: string
           type?: string | null
@@ -203,7 +203,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      decrement_product_quality: {
+        Args: { product_id: number; quantity: number }
+        Returns: undefined
+      }
     }
     Enums: {
       [_ in never]: never

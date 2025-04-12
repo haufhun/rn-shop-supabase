@@ -96,13 +96,13 @@ create policy "Enable insert for admins only"
     (SELECT type from public.users WHERE id = auth.uid()) = 'ADMIN'
   );
 
-create policy "Enable update for admins only"
+create policy "Enable update for auth user"
   on product for update to authenticated
   using (
-    (SELECT type from public.users WHERE id = auth.uid()) = 'ADMIN'
+    true
   )
   with check (
-    (SELECT type from public.users WHERE id = auth.uid()) = 'ADMIN'
+    true
   );
 
 create policy "Enable delete for admins only"
@@ -153,3 +153,12 @@ create policy "Allow all operations for auth users"
   on "public"."order_item" for all to authenticated
   using (true)
   with check (true);
+
+create or replace function public.decrement_product_quality(product_id int8, quantity int8)
+  returns void as $$
+  begin
+    update product
+    set max_quantity = max_quantity - quantity
+    where id = product_id and max_quantity >= quantity;
+  end;
+$$ language plpgsql security definer;
