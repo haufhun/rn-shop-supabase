@@ -148,8 +148,7 @@ export const createOrderItem = () => {
       const { data, error } = await supabase
         .from("order_item")
         .insert(mappedInsertData)
-        .select("*, prodcuts:product(*)")
-        .single();
+        .select("*, prodcuts:product(*)");
 
       const productQuantities = insertData.reduce(
         (acc, { productId, quantity: quanity }) => {
@@ -184,6 +183,31 @@ export const createOrderItem = () => {
           "An error occurred while updating product quantity: " + error.message
         );
       }
+    },
+  });
+};
+
+export const getMyOrder = (slug: string) => {
+  const { user } = useAuth();
+  const id = user?.id ?? "";
+
+  return useQuery({
+    queryKey: ["order", slug],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("order")
+        .select("*, order_items:order_item(*, products:product(*))")
+        .eq("slug", slug)
+        .eq("user", id)
+        .single();
+
+      if (error || !data) {
+        throw new Error(
+          "An error occurred while fetching data: " + error?.message
+        );
+      }
+
+      return data;
     },
   });
 };
