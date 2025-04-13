@@ -89,7 +89,15 @@ export type Database = {
           total_price?: number
           user?: string
         }
-        Relationships: []
+        Relationships: [
+          {
+            foreignKeyName: "order_user_fkey"
+            columns: ["user"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       order_item: {
         Row: {

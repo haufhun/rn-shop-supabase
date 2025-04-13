@@ -98,6 +98,7 @@ export const getMyOrders = () => {
 export const createOrder = () => {
   const { user } = useAuth();
   const id = user?.id ?? "";
+  console.log("user id", id);
 
   const slug = generateOrderSlug();
 

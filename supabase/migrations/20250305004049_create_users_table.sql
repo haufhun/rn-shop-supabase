@@ -129,7 +129,7 @@ create table "public"."order" (
   created_at timestamp not null default current_timestamp,
   status text not null,
   description text,
-  "user" uuid references auth.users(id) not null,
+  "user" uuid references public.users(id) not null,
   slug text not null unique,
   total_price float8 not null
 );
