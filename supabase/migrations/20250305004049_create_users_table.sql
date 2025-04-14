@@ -134,6 +134,7 @@ create table "public"."order" (
   total_price float8 not null
 );
 alter table "public"."order" enable row level security;
+alter publication supabase_realtime add table "public"."order";
 
 create policy "Allow all operations for auth users" 
   on "public"."order" for all to authenticated
