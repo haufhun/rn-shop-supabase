@@ -1,5 +1,6 @@
 import {
   ActivityIndicator,
+  Button,
   FlatList,
   StyleSheet,
   Text,
@@ -10,6 +11,7 @@ import { PRODUCTS } from "../../../assets/products";
 import { ProductListItem } from "../../components/product-list-item";
 import { ListHeader } from "../../components/list-header";
 import { getProductsAndCategories } from "../../api/api";
+import { fetchStripeKeys, setupStripePaymentSheet } from "../../lib/stripe";
 
 const Home = () => {
   const { data, error, isLoading } = getProductsAndCategories();

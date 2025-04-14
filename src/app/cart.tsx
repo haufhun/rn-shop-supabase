@@ -12,6 +12,7 @@ import React from "react";
 import { CartItemType, useCartStore } from "../store/cart-store";
 import { StatusBar } from "expo-status-bar";
 import { createOrder, createOrderItem } from "../api/api";
+import { openStripeCheckout, setupStripePaymentSheet } from "../lib/stripe";
 
 type CartItemProps = {
   item: CartItemType;
@@ -76,6 +77,15 @@ const Cart = () => {
     const totalPrice = parseFloat(getTotalPrice());
 
     try {
+      console.log("Setting up Stripe payment sheet...", totalPrice);
+      await setupStripePaymentSheet(Math.floor(totalPrice * 100));
+      const result = await openStripeCheckout();
+
+      if (!result) {
+        Alert.alert("Error", "Payment failed");
+        return;
+      }
+
       await createSupabaseOrder(
         { totalPrice },
         {
