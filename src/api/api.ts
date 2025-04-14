@@ -193,7 +193,7 @@ export const getMyOrder = (slug: string) => {
   const id = user?.id ?? "";
 
   return useQuery({
-    queryKey: ["order", slug],
+    queryKey: ["orders", slug],
     queryFn: async () => {
       const { data, error } = await supabase
         .from("order")
