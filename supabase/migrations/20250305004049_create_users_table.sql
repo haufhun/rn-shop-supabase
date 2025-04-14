@@ -1,11 +1,12 @@
 create table users (
   id uuid primary key references auth.users(id) not null,
+  created_at timestamp not null default current_timestamp,
   email text unique not null,
   type text default 'USER' check(
     type in ('USER', 'ADMIN')
   ),
   avatar_url text not null,
-  created_at timestamp not null default current_timestamp
+  stripe_customer_id text
 );
 
 create or replace function public.handle_new_user() returns trigger as $$
