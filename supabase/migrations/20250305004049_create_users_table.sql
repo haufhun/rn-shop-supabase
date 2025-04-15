@@ -6,7 +6,8 @@ create table users (
     type in ('USER', 'ADMIN')
   ),
   avatar_url text not null,
-  stripe_customer_id text
+  stripe_customer_id text,
+  expo_notification_token text
 );
 
 create or replace function public.handle_new_user() returns trigger as $$

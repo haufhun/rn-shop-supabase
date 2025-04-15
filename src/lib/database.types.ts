@@ -187,21 +187,27 @@ export type Database = {
           avatar_url: string
           created_at: string
           email: string
+          expo_notification_token: string | null
           id: string
+          stripe_customer_id: string | null
           type: string | null
         }
         Insert: {
           avatar_url: string
           created_at?: string
           email: string
+          expo_notification_token?: string | null
           id: string
+          stripe_customer_id?: string | null
           type?: string | null
         }
         Update: {
           avatar_url?: string
           created_at?: string
           email?: string
+          expo_notification_token?: string | null
           id?: string
+          stripe_customer_id?: string | null
           type?: string | null
         }
         Relationships: []
