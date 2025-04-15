@@ -100,6 +100,10 @@ export const createOrder = () => {
   const id = user?.id ?? "";
   console.log("user id", id);
 
+  if (!id) {
+    throw new Error("User ID is not available");
+  }
+
   const slug = generateOrderSlug();
 
   const queryClient = useQueryClient();
